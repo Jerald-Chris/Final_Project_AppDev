@@ -7,6 +7,6 @@ A mobile application designed to transform traditional grocery shopping experien
 BSIT-3307 
 <br></br>
 
-Acosta, Hans Rafael B. <br></br>
-De Castro, Mark Rafael V. <br></br>
-Maralit, Chris Jerald G. <br></br>
+Acosta, Hans Rafael B.<br>
+De Castro, Mark Rafael V.<br>
+Maralit, Chris Jerald G.<br>
