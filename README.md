@@ -1,7 +1,7 @@
 # Final_Project_AppDev
 
 <b>CLIMATECH: Weather Application</b><br><br>
-A mobile application designed to transform traditional grocery shopping experience into a digital system by allowing purchasing of products via e-payment gateways using a QR code scanner through the user interface.
+A weather application is a mobile application or software that tells users about the present and predicted weather. generally, it displays information on temperature, humidity, wind direction, and precipitation. It is typical for users to view forecasts for the next few days and receive notifications regarding extreme weather condition. Additional elements like sunrise/sunset times might potentially be included in the app.
 <br></br>
 
 Acosta, Hans Rafael B.<br>
