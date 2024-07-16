@@ -46,7 +46,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<HomePage> {
+  class _MyWidgetState extends State<HomePage> {
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   
   Weather? _weather;
