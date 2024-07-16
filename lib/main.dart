@@ -53,16 +53,19 @@ class _MyWidgetState extends State<HomePage> {
     _fetchWeather();
   }
 
-  void _fetchWeather() {
-    _weatherFactory.fiveDayForecastByCityName("Batangas").then((forecast) {
+  Future<void> _fetchWeather() async {
+    await Future.delayed(Duration(seconds: 2));
+    try {
+      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
         _forecast = forecast;
-        // For demonstration, you can set _weather to the first forecast item if needed
         if (_forecast != null && _forecast!.isNotEmpty) {
           _weather = _forecast![0];
         }
       });
-    });
+    } catch (e) {
+      print("Error fetching weather data: $e");
+    }
   }
 
   @override
@@ -78,41 +81,47 @@ class _MyWidgetState extends State<HomePage> {
         child: CircularProgressIndicator(),
       );
     }
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 0, 0, 0),
-          ],
-        ),
-      ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              locationHeader(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.00001,
-              ),
-              weatherIcon(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-              dateTimeInfo(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              forecastContainer(),
+    return RefreshIndicator(
+      onRefresh: _fetchWeather,
+      color: Colors.deepPurple,
+      backgroundColor: Colors.white,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 29, 3, 45),
+              Color.fromARGB(255, 107, 65, 213),
             ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                locationHeader(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.00001,
+                ),
+                weatherIcon(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                ),
+                dateTimeInfo(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                forecastContainer(),
+              ],
+            ),
           ),
         ),
       ),
@@ -132,77 +141,73 @@ class _MyWidgetState extends State<HomePage> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        IconButton(
-          icon: const Icon(Icons.refresh, color: Colors.white, size: 15), // Reduced icon size
-          onPressed: _fetchWeather,
-        ),
+        
       ],
     );
   }
 
- Widget dateTimeInfo() {
-  DateTime now = DateTime.now();
-  return Column(
-    children: [
-      Text(
-        DateFormat("EEEE").format(now),
-        style: const TextStyle(
-          color: Color.fromARGB(255, 255, 255, 255),
-          fontFamily: 'Manrope',
-          fontSize: 23, // Reduced font size
-          fontWeight: FontWeight.w600,
+  Widget dateTimeInfo() {
+    DateTime now = DateTime.now();
+    return Column(
+      children: [
+        Text(
+          DateFormat("EEEE").format(now),
+          style: const TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontFamily: 'Manrope',
+            fontSize: 23, // Reduced font size
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-      const SizedBox(
-        height: 1,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            DateFormat("h:mm a").format(now),
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 15, // Reduced font size
-              fontWeight: FontWeight.w300,
+        const SizedBox(
+          height: 1,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              DateFormat("h:mm a").format(now),
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 15, // Reduced font size
+                fontWeight: FontWeight.w300,
+              ),
             ),
-          ),
-          Text(
-            "  ${DateFormat("|   M.d.y").format(now)}",
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 15, // Reduced font size
-              fontWeight: FontWeight.w300,
+            Text(
+              "  ${DateFormat("|   M.d.y").format(now)}",
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 15, // Reduced font size
+                fontWeight: FontWeight.w300,
+              ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 40,
-      ),
-      const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.calendar_month,
-              color: Color.fromARGB(255, 255, 255, 255), size: 16),
-          SizedBox(width: 4),
-          Text(
-            "7 Days Forecast",
-            style: TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+          ],
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.calendar_month,
+                color: Color.fromARGB(255, 255, 255, 255), size: 16),
+            SizedBox(width: 4),
+            Text(
+              "7 Days Forecast",
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
+          ],
+        ),
+      ],
+    );
+  }
 
   Widget weatherIcon() {
     return Column(
@@ -239,23 +244,27 @@ class _MyWidgetState extends State<HomePage> {
       ],
     );
   }
-Widget forecastContainer() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: _forecast!.map((weather) {
-      return weatherDayContainer(
-        DateFormat("EEEE").format(weather.date!),
-        DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
-        "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
-        capitalize(weather.weatherDescription ?? ""),
-      );
-    }).toList(),
-  );
-}
 
-Widget weatherDayContainer(String day, String time, String temperature, String description) {
+  Widget forecastContainer() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: _forecast!.map((weather) {
+        return Center( //To center all teh container
+          child: weatherDayContainer(
+            DateFormat("EEEE").format(weather.date!),
+            DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
+            "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
+            capitalize(weather.weatherDescription ?? ""),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget weatherDayContainer(String day, String time, String temperature, String description) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.9, //to edit the width of the container
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
