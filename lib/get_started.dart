@@ -1,8 +1,11 @@
 import 'package:final_project_appdev/main.dart';
+import 'package:final_project_appdev/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ClimaTechApp());
+  runApp(const MaterialApp(
+    home: SplashScreen()
+  ));
 }
 
 class ClimaTechApp extends StatelessWidget {
@@ -11,7 +14,7 @@ class ClimaTechApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ClimaTech',
+      title: 'Get Started',
       theme: ThemeData(
         fontFamily: 'Manrope',
       ),
