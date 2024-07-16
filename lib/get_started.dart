@@ -44,10 +44,10 @@ class ClimaTechHomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Icon(
-                Icons.cloud, // Replace this with your custom cloud icon if available
-                size: 100,
-                color: Colors.white,
+              const Image(
+                image: AssetImage('assets/images/climatech_logo.png'), // Replace this with your custom cloud icon if available
+                width: 500,
+                height: 500,
               ),
               const SizedBox(height: 20),
               const Text(

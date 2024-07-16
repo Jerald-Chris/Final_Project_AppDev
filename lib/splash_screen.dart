@@ -49,9 +49,9 @@ class _SplashScreenState extends State<SplashScreen>
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.cloud,
-            size: 200,
-            color: Colors.white
+            Image(image: AssetImage('assets/images/climatech_logo.png'),
+            width: 500,
+            height: 500,
             ),
           ],
         ),
