@@ -1,3 +1,4 @@
+import 'package:final_project_appdev/main.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -65,6 +66,7 @@ class ClimaTechHomePage extends StatelessWidget {
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()),);
                   // Handle button press
                 },
                 style: ElevatedButton.styleFrom(
