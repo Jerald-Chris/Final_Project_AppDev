@@ -56,7 +56,7 @@ class _MyWidgetState extends State<HomePage> {
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
-      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas City");
+      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
         _forecast = forecast;
         if (_forecast != null && _forecast!.isNotEmpty) {
@@ -101,7 +101,7 @@ class _MyWidgetState extends State<HomePage> {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -113,7 +113,7 @@ class _MyWidgetState extends State<HomePage> {
                 ),
                 weatherIcon(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 forecastContainer(),
               ],
@@ -263,8 +263,8 @@ Widget dateTimeInfo() {
       children: _forecast!.map((weather) {
         return Center( //To center all teh container
           child: weatherDayContainer(
-            DateFormat("EEE").format(weather.date!),
-            DateFormat("h a").format(weather.date!), // Use weather.date for each forecast item
+            DateFormat("EEEE").format(weather.date!),
+            DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
             "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
             capitalize(weather.weatherDescription ?? ""),
           ),
