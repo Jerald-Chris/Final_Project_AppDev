@@ -45,9 +45,9 @@ class ClimaTechHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Image(
-                image: AssetImage('assets/images/logo.png'), // Replace this with your custom cloud icon if available
-                width: 500,
-                height: 500,
+                image: AssetImage('assets/images/logo-climatech.png'), // Replace this with your custom cloud icon if available
+                width: 200,
+                height: 200,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -62,18 +62,19 @@ class ClimaTechHomePage extends StatelessWidget {
               const Text(
                 'Weathering With You',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontFamily: 'Manrope-Bold',
+                  fontSize: 15,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()),);
                   // Handle button press
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow, // Yellow color for the button
+                  backgroundColor: const Color.fromARGB(255, 108, 161, 227), // Yellow color for the button
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -83,7 +84,8 @@ class ClimaTechHomePage extends StatelessWidget {
                   'Get Started',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Color.fromARGB(255, 29, 3, 45),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontWeight: FontWeight.w800
                   ),
                 ),
               ),

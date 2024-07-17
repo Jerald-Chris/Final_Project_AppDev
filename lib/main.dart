@@ -56,7 +56,7 @@ class _MyWidgetState extends State<HomePage> {
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
-      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
+      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas City");
       setState(() {
         _forecast = forecast;
         if (_forecast != null && _forecast!.isNotEmpty) {
@@ -101,7 +101,7 @@ class _MyWidgetState extends State<HomePage> {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -117,7 +117,7 @@ class _MyWidgetState extends State<HomePage> {
                 ),
                 dateTimeInfo(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 forecastContainer(),
               ],
@@ -268,7 +268,7 @@ class _MyWidgetState extends State<HomePage> {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -279,7 +279,7 @@ class _MyWidgetState extends State<HomePage> {
               day,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -291,7 +291,7 @@ class _MyWidgetState extends State<HomePage> {
               time,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -304,7 +304,7 @@ class _MyWidgetState extends State<HomePage> {
               temperature,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
                 fontSize: 12,
                 fontWeight: FontWeight.w800,
@@ -317,7 +317,7 @@ class _MyWidgetState extends State<HomePage> {
               description,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
