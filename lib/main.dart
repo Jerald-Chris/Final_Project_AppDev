@@ -54,7 +54,7 @@ class _MyWidgetState extends State<HomePage> {
   }
 
   Future<void> _fetchWeather() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     try {
       final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
@@ -264,7 +264,7 @@ class _MyWidgetState extends State<HomePage> {
 
   Widget weatherDayContainer(String day, String time, String temperature, String description) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9, //to edit the width of the container
+      width: MediaQuery.of(context).size.width * 0.8, //to edit the width of the container
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(

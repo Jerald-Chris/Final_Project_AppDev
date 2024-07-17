@@ -45,7 +45,7 @@ class ClimaTechHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Image(
-                image: AssetImage('assets/images/climatech_logo.png'), // Replace this with your custom cloud icon if available
+                image: AssetImage('assets/images/logo.png'), // Replace this with your custom cloud icon if available
                 width: 500,
                 height: 500,
               ),
