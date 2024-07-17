@@ -46,8 +46,8 @@ class ClimaTechHomePage extends StatelessWidget {
             children: <Widget>[
               const Image(
                 image: AssetImage('assets/images/logo.png'), // Replace this with your custom cloud icon if available
-                width: 500,
-                height: 500,
+                width: 300,
+                height: 300,
               ),
               const SizedBox(height: 20),
               const Text(
