@@ -257,19 +257,24 @@ Widget dateTimeInfo() {
 }
 
   Widget forecastContainer() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: _forecast!.map((weather) {
-        return Center( //To center all teh container
-          child: weatherDayContainer(
-            DateFormat("EEEE").format(weather.date!),
-            DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
-            "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
-            capitalize(weather.weatherDescription ?? ""),
-          ),
-        );
-      }).toList(),
+    return Container(
+      height: 300, // Set the desired height for the scrollable area
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _forecast!.map((weather) {
+            return Center( //To center all the containers
+              child: weatherDayContainer(
+                DateFormat("EEEE").format(weather.date!),
+                DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
+                "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
+                capitalize(weather.weatherDescription ?? ""),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 

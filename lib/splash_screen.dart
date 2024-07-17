@@ -31,8 +31,21 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const ClimaTechApp(),
+      Navigator.of(context).pushReplacement(PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const ClimaTechApp(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0); // Slide in from the right
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+
+          final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          final offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
       ));
     });
   }
@@ -51,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors:[
+            colors: [
               Color.fromARGB(255, 22, 1, 35),
               Color.fromARGB(255, 107, 65, 213),
             ],
