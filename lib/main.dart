@@ -55,7 +55,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 2));
     try {
-      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
+      final forecast =
+          await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
         _forecast = forecast;
         if (_forecast != null && _forecast!.isNotEmpty) {
@@ -76,10 +77,24 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 29, 3, 45),
           bottom: const TabBar(
-             indicatorColor: Colors.white,
+            indicatorColor: Colors.white,
             tabs: [
-              Tab(text: 'Weather'),
-              Tab(text: 'Second Tab'), // Second tab
+              Padding(
+                padding: EdgeInsets.all(20.0), // Add padding here
+                child: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                  size: 33.0,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20.0), // Add padding here
+                child: Icon(
+                  Icons.thermostat,
+                  color: Colors.white,
+                  size: 33.0,
+                ),
+              ), // Second tab
             ],
           ),
         ),
@@ -119,7 +134,8 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -154,7 +170,8 @@ class _HomePageState extends State<HomePage> {
               color: Color.fromARGB(255, 255, 255, 255),
               size: 16,
             ),
-            const SizedBox(width: 4), // Add some space between the icon and the time text
+            const SizedBox(
+                width: 4), // Add some space between the icon and the time text
             Text(
               DateFormat("h:mm a  |").format(now),
               style: const TextStyle(
@@ -164,7 +181,9 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.w300,
               ),
             ),
-            const SizedBox(width: 4), // Add some space between the date text and the calendar icon
+            const SizedBox(
+                width:
+                    4), // Add some space between the date text and the calendar icon
             const Icon(
               Icons.calendar_today,
               color: Color.fromARGB(255, 255, 255, 255),
@@ -243,7 +262,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        const SizedBox(height: 30), // Optional: Add some space between the description and the forecast text
+        const SizedBox(
+            height:
+                30), // Optional: Add some space between the description and the forecast text
         const Text(
           "7 Days Forecast",
           style: TextStyle(
@@ -265,10 +286,12 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: _forecast!.map((weather) {
-            return Center( // To center all the containers
+            return Center(
+              // To center all the containers
               child: weatherDayContainer(
                 DateFormat("EEEE").format(weather.date!),
-                DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
+                DateFormat("h:mm a").format(
+                    weather.date!), // Use weather.date for each forecast item
                 "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
                 capitalize(weather.weatherDescription ?? ""),
               ),
@@ -279,9 +302,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget weatherDayContainer(String day, String time, String temperature, String description) {
+  Widget weatherDayContainer(
+      String day, String time, String temperature, String description) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8, // to edit the width of the container
+      width: MediaQuery.of(context).size.width *
+          0.8, // to edit the width of the container
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
