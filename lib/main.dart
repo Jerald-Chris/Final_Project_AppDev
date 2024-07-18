@@ -1,13 +1,12 @@
 import 'package:final_project_appdev/const.dart';
 import 'package:final_project_appdev/splash_screen.dart';
+import 'package:final_project_appdev/second_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: SplashScreen()
-  ));
+  runApp(const MaterialApp(home: SplashScreen()));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,10 +33,10 @@ class HomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<HomePage> createState() => _MyWidgetState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyWidgetState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
   List<Weather>? _forecast;
@@ -68,10 +67,29 @@ class _MyWidgetState extends State<HomePage> {
     }
   }
 
+  //Dito ka mag eedit ng design ng appbar
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildUI(),
+    return DefaultTabController(
+      length: 2, // Number of tabs
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 29, 3, 45),
+          bottom: const TabBar(
+             indicatorColor: Colors.white,
+            tabs: [
+              Tab(text: 'Weather'),
+              Tab(text: 'Second Tab'), // Second tab
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildUI(), // First tab content
+            const SecondTab(), // Second tab content from the new file
+          ],
+        ),
+      ),
     );
   }
 
@@ -124,87 +142,69 @@ class _MyWidgetState extends State<HomePage> {
     );
   }
 
-  Widget locationHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget dateTimeInfo() {
+    DateTime now = DateTime.now();
+    return Column(
       children: [
-        Text(
-          _weather?.areaName ?? "",
-          style: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontFamily: 'Manrope',
-            fontSize: 30, // Reduced font size
-            fontWeight: FontWeight.w700,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.access_time,
+              color: Color.fromARGB(255, 255, 255, 255),
+              size: 16,
+            ),
+            const SizedBox(width: 4), // Add some space between the icon and the time text
+            Text(
+              DateFormat("h:mm a  |").format(now),
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 16, // Reduced font size
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            const SizedBox(width: 4), // Add some space between the date text and the calendar icon
+            const Icon(
+              Icons.calendar_today,
+              color: Color.fromARGB(255, 255, 255, 255),
+              size: 16,
+            ),
+            Text(
+              "  ${DateFormat("M.d.y").format(now)}",
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 16, // Reduced font size
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
         ),
-        
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: 4),
+            Text(
+              DateFormat("EEEE").format(now),
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 40, // Reduced font size
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 1,
+        ),
       ],
     );
   }
-
-Widget dateTimeInfo() {
-  DateTime now = DateTime.now();
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.access_time,
-            color: Color.fromARGB(255, 255, 255, 255),
-            size: 16,
-          ),
-          const SizedBox(width: 4), // Add some space between the icon and the time text
-          Text(
-            DateFormat("h:mm a  |").format(now),
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 16, // Reduced font size
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-          const SizedBox(width: 4), // Add some space between the date text and the calendar icon
-          const Icon(
-            Icons.calendar_today,
-            color: Color.fromARGB(255, 255, 255, 255),
-            size: 16,
-          ),
-          Text(
-            "  ${DateFormat("M.d.y").format(now)}",
-              style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 16, // Reduced font size
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(width: 4),
-          Text(
-            DateFormat("EEEE").format(now),
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 40, // Reduced font size
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 1,
-      ),
-    ],
-  );
-}
 
   Widget weatherIcon() {
     return Column(
@@ -220,14 +220,15 @@ Widget dateTimeInfo() {
             ),
           ),
         ),
-        SizedBox(height: 80,
-        child: Text(
-          "${_weather?.temperature?.celsius?.toStringAsFixed(0)}°C",
-          style: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontFamily: 'Manrope',
-            fontSize: 50,
-            fontWeight: FontWeight.w500,
+        SizedBox(
+          height: 80,
+          child: Text(
+            "${_weather?.temperature?.celsius?.toStringAsFixed(0)}°C",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontFamily: 'Manrope',
+              fontSize: 50,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
@@ -239,22 +240,22 @@ Widget dateTimeInfo() {
               fontFamily: 'Manrope',
               fontSize: 15,
               fontWeight: FontWeight.w300,
-              ),
             ),
           ),
+        ),
         const SizedBox(height: 30), // Optional: Add some space between the description and the forecast text
         const Text(
           "7 Days Forecast",
           style: TextStyle(
-          color: Color.fromARGB(255, 255, 255, 255),
-          fontFamily: 'Manrope',
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontFamily: 'Manrope',
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Widget forecastContainer() {
     return Container(
@@ -264,7 +265,7 @@ Widget dateTimeInfo() {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: _forecast!.map((weather) {
-            return Center( //To center all the containers
+            return Center( // To center all the containers
               child: weatherDayContainer(
                 DateFormat("EEEE").format(weather.date!),
                 DateFormat("h:mm a").format(weather.date!), // Use weather.date for each forecast item
@@ -278,9 +279,9 @@ Widget dateTimeInfo() {
     );
   }
 
-  Widget weatherDayContainer(String day, String time, String temperature, String descrtiption) {
+  Widget weatherDayContainer(String day, String time, String temperature, String description) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8, //to edit the width of the container
+      width: MediaQuery.of(context).size.width * 0.8, // to edit the width of the container
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
@@ -330,7 +331,7 @@ Widget dateTimeInfo() {
           const SizedBox(width: 15),
           Expanded(
             child: Text(
-              descrtiption,
+              description,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
