@@ -75,6 +75,13 @@ class _HomePageState extends State<HomePage> {
       length: 2, // Number of tabs
       child: Scaffold(
         appBar: AppBar(
+          title: const Text(
+            'ClimaTech',
+            style: TextStyle(color: Colors.white,
+            fontFamily: 'Manrope',
+            fontWeight: FontWeight.bold,
+            fontSize: 35),
+          ),
           backgroundColor: const Color.fromARGB(255, 29, 3, 45),
           bottom: const TabBar(
             indicatorColor: Colors.white,
