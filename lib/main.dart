@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchWeather() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     try {
       final forecast =
           await _weatherFactory.fiveDayForecastByCityName("Batangas");
@@ -80,19 +80,19 @@ class _HomePageState extends State<HomePage> {
             indicatorColor: Colors.white,
             tabs: [
               Padding(
-                padding: EdgeInsets.all(20.0), // Add padding here
+                padding: EdgeInsets.all(10.0), // Add padding here
                 child: Icon(
                   Icons.home,
                   color: Colors.white,
-                  size: 33.0,
+                  size: 30.0,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0), // Add padding here
+                padding: EdgeInsets.all(10.0), // Add padding here
                 child: Icon(
                   Icons.thermostat,
                   color: Colors.white,
-                  size: 33.0,
+                  size: 30.0,
                 ),
               ), // Second tab
             ],
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             _buildUI(), // First tab content
-            const SecondTab(), // Second tab content from the new file
+            const SecondTab(title: 'ClimaTech',), // Second tab content from the new file
           ],
         ),
       ),
@@ -143,11 +143,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 dateTimeInfo(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.001,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 weatherIcon(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 forecastContainer(),
               ],
@@ -230,7 +230,7 @@ class _HomePageState extends State<HomePage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * 0.20,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
@@ -278,96 +278,133 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget forecastContainer() {
-    return Container(
-      height: 300, // Set the desired height for the scrollable area
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: _forecast!.map((weather) {
-            return Center(
-              // To center all the containers
-              child: weatherDayContainer(
-                DateFormat("EEEE").format(weather.date!),
-                DateFormat("h:mm a").format(
-                    weather.date!), // Use weather.date for each forecast item
-                "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
-                capitalize(weather.weatherDescription ?? ""),
-              ),
-            );
-          }).toList(),
-        ),
+Widget forecastContainer() {
+  return SizedBox(
+    height: 300, // Set the desired height for the scrollable area
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _forecast!.map((weather) {
+          return Center(
+            // To center all the containers
+            child: weatherDayContainer(
+              DateFormat("EEEE").format(weather.date!),
+              DateFormat("h:mm a").format(weather.date!),
+              "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
+              weather.weatherIcon, // Pass the icon code or URL here
+            ),
+          );
+        }).toList(),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget weatherDayContainer(
-      String day, String time, String temperature, String description) {
-    return Container(
-      width: MediaQuery.of(context).size.width *
-          0.8, // to edit the width of the container
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Text(
-              day,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Manrope',
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+Widget weatherDayContainer(
+    String day, String time, String temperature, String? iconCode) {
+  return Container(
+    width: MediaQuery.of(context).size.width * 0.9,
+    padding: const EdgeInsets.all(10),
+    margin: const EdgeInsets.symmetric(vertical: 5),
+    decoration: BoxDecoration(
+      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Text(
+            day,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontFamily: 'Manrope',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
           ),
-          Expanded(
-            child: Text(
-              time,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Manrope',
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+        ),
+        const SizedBox(width: 3),
+        Expanded(
+          child: Text(
+            time,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontFamily: 'Manrope',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(width: 3),
-          Expanded(
-            child: Text(
-              temperature,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Manrope',
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-              ),
+        ),
+        const SizedBox(width: 3),
+        Expanded(
+          child: Text(
+            temperature,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontFamily: 'Manrope',
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
             ),
           ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Text(
-              description,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontFamily: 'Manrope',
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+        ),
+        const SizedBox(width: 3),
+        Expanded(
+          child: Icon(
+            _getWeatherIcon(iconCode),
+            color: Colors.white,
+            size: 20,
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  );
+}
+
+IconData _getWeatherIcon(String? iconCode) {
+  switch (iconCode) {
+    case '01d':
+      return Icons.wb_sunny;
+    case '01n':
+      return Icons.night_shelter;
+    case '02d':
+      return Icons.cloud;
+    case '02n':
+      return Icons.cloud;
+    case '03d':
+      return Icons.cloud;
+    case '03n':
+      return Icons.cloud;
+    case '04d':
+      return Icons.cloud;
+    case '04n':
+      return Icons.cloud;
+    case '09d':
+      return Icons.umbrella;
+    case '09n':
+      return Icons.umbrella;
+    case '10d':
+      return Icons.beach_access;
+    case '10n': 
+      return Icons.beach_access;
+    case '11d':
+      return Icons.flash_on;
+    case '11n':
+      return Icons.flash_on;
+    case '13d':
+      return Icons.ac_unit;
+    case '13n':
+      return Icons.ac_unit;
+    case '50d':
+      return Icons.foggy;
+    case '50n':
+      return Icons.foggy;
+    default:
+      return Icons.help_outline;
+    }
   }
 }
