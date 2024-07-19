@@ -299,7 +299,7 @@ class _HomePageState extends State<HomePage> {
 
 Widget forecastContainer() {
   return SizedBox(
-    height: 300, // Set the desired height for the scrollable area
+    height: 250, // Set the desired height for the scrollable area
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
