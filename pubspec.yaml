@@ -85,6 +85,9 @@ flutter:
           - asset: assets/fonts/Manrope-Medium.ttf
           - asset: assets/fonts/Manrope-Regular.ttf
           - asset: assets/fonts/Manrope-SemiBold.ttf
+      - family: ArsenalSC
+        fonts:
+          - asset: assets/fonts/ArsenalSC-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

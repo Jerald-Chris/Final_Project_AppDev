@@ -35,8 +35,8 @@ class ClimaTechHomePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 29, 3, 45), // Top color
-              Color.fromARGB(255, 107, 65, 213), // Bottom color
+              Color.fromARGB(255, 29, 3, 45),
+              Color.fromARGB(255, 107, 65, 213), 
             ],
           ),
         ),
@@ -45,22 +45,21 @@ class ClimaTechHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Image(
-                image: AssetImage('assets/images/logo-climatech.png'), // Replace this with your custom cloud icon if available
+                image: AssetImage('assets/images/logo-climatech.png'),
                 width: 300,
                 height: 300,
               ),
               const SizedBox(height: 20),
-              const Text(
-                'ClimaTech',
+              const Text('ClimaTech',
                 style: TextStyle(
+                  fontFamily: 'ArsenalSC-Bold',
                   fontSize: 55,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                'Weathering With You',
+              const Text('Weathering With You',
                 style: TextStyle(
                   fontFamily: 'Manrope-Bold',
                   fontSize: 15,
@@ -71,17 +70,15 @@ class ClimaTechHomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()),);
-                  // Handle button press
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 108, 161, 227), // Yellow color for the button
+                  backgroundColor: const Color.fromARGB(255, 108, 161, 227),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
-                  'Get Started',
+                child: const Text('Get Started',
                   style: TextStyle(
                     fontSize: 16,
                     color: Color.fromARGB(255, 255, 255, 255),

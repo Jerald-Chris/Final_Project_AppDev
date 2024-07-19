@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.all(10.0), // Add padding here
                 child: Icon(
-                  Icons.thermostat,
+                  Icons.location_on_outlined,
                   color: Colors.white,
                   size: 30.0,
                 ),
@@ -109,11 +109,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildUI() {
-    if (_forecast == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
+  if (_forecast == null) {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 29, 3, 45),
+                Color.fromARGB(255, 107, 65, 213),
+              ],
+            ),
+          ),
+        ),
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: LinearProgressIndicator(
+            color: Colors.deepPurple, // Set your desired color here
+          ),
+        ),
+      ],
+    );
+  }
     return RefreshIndicator(
       onRefresh: _fetchWeather,
       color: Colors.deepPurple,
