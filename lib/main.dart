@@ -36,7 +36,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
   List<Weather>? _forecast;
@@ -49,14 +49,57 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+        _controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
+      _topAlignmentAnimation = TweenSequence<Alignment>(
+        [
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+            weight: 1,
+          ),
+        ]
+      ).animate(_controller);
+
+      _bottomAlignmentAnimation = TweenSequence<Alignment>(
+        [
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+            weight: 1,
+          ),
+        ]
+      ).animate(_controller);
+
+      _controller.repeat();
     _fetchWeather();
   }
 
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 1));
     try {
-      final forecast =
-          await _weatherFactory.fiveDayForecastByCityName("Batangas");
+      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
         _forecast = forecast;
         if (_forecast != null && _forecast!.isNotEmpty) {
@@ -68,78 +111,87 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  //Dito ka mag eedit ng design ng appbar
+  late AnimationController _controller;
+  late Animation<Alignment> _topAlignmentAnimation;
+  late Animation<Alignment> _bottomAlignmentAnimation;
+
+  Future<void> _refreshWeather() async {
+    await _fetchWeather();
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2, // Number of tabs
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'ClimaTech',
-            style: TextStyle(color: Colors.white,
-            fontFamily: 'Manrope',
-            fontWeight: FontWeight.bold,
-            fontSize: 35),
-          ),
-          backgroundColor: const Color.fromARGB(255, 29, 3, 45),
-          bottom: const TabBar(
-            indicatorColor: Colors.white,
-            tabs: [
-              Padding(
-                padding: EdgeInsets.all(10.0), // Add padding here
-                child: Icon(
-                  Icons.home,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
+Widget build(BuildContext context) {
+  return DefaultTabController(
+    length: 2, // Number of tabs
+    child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 29, 3, 45),
+        bottom: const TabBar(
+          indicatorColor: Colors.white,
+          tabs: [
+            Padding(
+              padding: EdgeInsets.all(10.0), // Add padding here
+              child: Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 30.0,
               ),
-              Padding(
-                padding: EdgeInsets.all(10.0), // Add padding here
-                child: Icon(
-                  Icons.location_on_outlined,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-              ), // Second tab
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            _buildUI(), // First tab content
-            const SecondTab(title: 'ClimaTech',), // Second tab content from the new file
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0), // Add padding here
+              child: Icon(
+                Icons.location_on_outlined,
+                color: Colors.white,
+                size: 30.0,
+              ),
+            ), // Second tab
           ],
         ),
       ),
-    );
-  }
+      body: TabBarView(
+        children: [
+          RefreshIndicator(
+            onRefresh: _refreshWeather,
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return _buildUI();
+              },
+              child: _buildUI(),
+            ),
+          ), // First tab content
+          const SecondTab(title: 'ClimaTech',), // Second tab content from the new file
+        ],
+      ),
+    ),
+  );
+}
 
   Widget _buildUI() {
-  if (_forecast == null) {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
+    if (_forecast == null) {
+      return Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 29, 3, 45),
-                Color.fromARGB(255, 107, 65, 213),
+              colors: const [
+                Color.fromARGB(255, 37, 15, 65),
+                Color.fromARGB(255, 129, 19, 198),
               ],
+                begin: _topAlignmentAnimation.value,
+                end: _bottomAlignmentAnimation.value,
+              ),
             ),
           ),
-        ),
-        const Align(
-          alignment: Alignment.bottomCenter,
-          child: LinearProgressIndicator(
-            color: Colors.deepPurple, // Set your desired color here
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: LinearProgressIndicator(
+              color: Colors.deepPurple, // Set your desired color here
+            ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
+    }
     return RefreshIndicator(
       onRefresh: _fetchWeather,
       color: Colors.deepPurple,
@@ -147,16 +199,16 @@ class _HomePageState extends State<HomePage> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 29, 3, 45),
-              Color.fromARGB(255, 107, 65, 213),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: const [
+                Color.fromARGB(255, 37, 15, 65),
+                Color.fromARGB(255, 129, 19, 198),
+              ],
+                begin: _topAlignmentAnimation.value,
+                end: _bottomAlignmentAnimation.value,
+              ),
+            ),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
@@ -291,8 +343,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
             height:
                 30), // Optional: Add some space between the description and the forecast text
-        const Text(
-          "7 Days Forecast",
+        const Text("5 Days Forecast",
           style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             fontFamily: 'Manrope',
@@ -304,133 +355,133 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-Widget forecastContainer() {
-  return SizedBox(
-    height: 250, // Set the desired height for the scrollable area
-    child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _forecast!.map((weather) {
-          return Center(
-            // To center all the containers
-            child: weatherDayContainer(
-              DateFormat("EEEE").format(weather.date!),
-              DateFormat("h:mm a").format(weather.date!),
-              "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
-              weather.weatherIcon, // Pass the icon code or URL here
-            ),
-          );
-        }).toList(),
+  Widget forecastContainer() {
+    return SizedBox(
+      height: 250, // Set the desired height for the scrollable area
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _forecast!.map((weather) {
+            return Center(
+              // To center all the containers
+              child: weatherDayContainer(
+                DateFormat("EEEE").format(weather.date!),
+                DateFormat("h:mm a").format(weather.date!),
+                "${weather.temperature?.celsius?.toStringAsFixed(0)}°C",
+                weather.weatherIcon, // Pass the icon code or URL here
+              ),
+            );
+          }).toList(),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget weatherDayContainer(
-    String day, String time, String temperature, String? iconCode) {
-  return Container(
-    width: MediaQuery.of(context).size.width * 0.9,
-    padding: const EdgeInsets.all(10),
-    margin: const EdgeInsets.symmetric(vertical: 5),
-    decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Text(
-            day,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+  Widget weatherDayContainer(
+      String day, String time, String temperature, String? iconCode) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Text(
+              day,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 3),
-        Expanded(
-          child: Text(
-            time,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+          const SizedBox(width: 3),
+          Expanded(
+            child: Text(
+              time,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 3),
-        Expanded(
-          child: Text(
-            temperature,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Manrope',
-              fontSize: 14,
-              fontWeight: FontWeight.w800,
+          const SizedBox(width: 3),
+          Expanded(
+            child: Text(
+              temperature,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Manrope',
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 3),
-        Expanded(
-          child: Icon(
-            _getWeatherIcon(iconCode),
-            color: Colors.white,
-            size: 20,
+          const SizedBox(width: 3),
+          Expanded(
+            child: Icon(
+              _getWeatherIcon(iconCode),
+              color: Colors.white,
+              size: 20,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 
-IconData _getWeatherIcon(String? iconCode) {
-  switch (iconCode) {
-    case '01d':
-      return Icons.wb_sunny;
-    case '01n':
-      return Icons.night_shelter;
-    case '02d':
-      return Icons.cloud;
-    case '02n':
-      return Icons.cloud;
-    case '03d':
-      return Icons.cloud;
-    case '03n':
-      return Icons.cloud;
-    case '04d':
-      return Icons.cloud;
-    case '04n':
-      return Icons.cloud;
-    case '09d':
-      return Icons.umbrella;
-    case '09n':
-      return Icons.umbrella;
-    case '10d':
-      return Icons.beach_access;
-    case '10n': 
-      return Icons.beach_access;
-    case '11d':
-      return Icons.flash_on;
-    case '11n':
-      return Icons.flash_on;
-    case '13d':
-      return Icons.ac_unit;
-    case '13n':
-      return Icons.ac_unit;
-    case '50d':
-      return Icons.foggy;
-    case '50n':
-      return Icons.foggy;
-    default:
-      return Icons.help_outline;
+  IconData _getWeatherIcon(String? iconCode) {
+    switch (iconCode) {
+      case '01d':
+        return Icons.wb_sunny;
+      case '01n':
+        return Icons.night_shelter;
+      case '02d':
+        return Icons.cloud;
+      case '02n':
+        return Icons.cloud;
+      case '03d':
+        return Icons.cloud;
+      case '03n':
+        return Icons.cloud;
+      case '04d':
+        return Icons.cloud;
+      case '04n':
+        return Icons.cloud;
+      case '09d':
+        return Icons.umbrella;
+      case '09n':
+        return Icons.umbrella;
+      case '10d':
+        return Icons.beach_access;
+      case '10n': 
+        return Icons.beach_access;
+      case '11d':
+        return Icons.flash_on;
+      case '11n':
+        return Icons.flash_on;
+      case '13d':
+        return Icons.ac_unit;
+      case '13n':
+        return Icons.ac_unit;
+      case '50d':
+        return Icons.foggy;
+      case '50n':
+        return Icons.foggy;
+      default:
+        return Icons.help_outline;
     }
   }
 }

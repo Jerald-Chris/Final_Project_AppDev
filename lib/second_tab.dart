@@ -16,7 +16,7 @@ class SecondTab extends StatefulWidget {
   State<SecondTab> createState() => _SecondTabState();
 }
 
-class _SecondTabState extends State<SecondTab> {
+class _SecondTabState extends State<SecondTab> with SingleTickerProviderStateMixin {
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
   List<Weather>? _forecast;
@@ -30,8 +30,52 @@ class _SecondTabState extends State<SecondTab> {
   @override
   void initState() {
     super.initState();
-    _fetchWeather();
-  }
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
+      _topAlignmentAnimation = TweenSequence<Alignment>(
+        [
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+            weight: 1,
+          ),
+        ]
+      ).animate(_controller);
+
+      _bottomAlignmentAnimation = TweenSequence<Alignment>(
+        [
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+            weight: 1,
+          ),
+          TweenSequenceItem<Alignment>(
+            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+            weight: 1,
+          ),
+        ]
+      ).animate(_controller);
+
+      _controller.repeat();
+      _fetchWeather();
+    }
 
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -56,32 +100,42 @@ class _SecondTabState extends State<SecondTab> {
     await _fetchWeather();
   }
 
-  @override
+  late AnimationController _controller;
+  late Animation<Alignment> _topAlignmentAnimation;
+  late Animation<Alignment> _bottomAlignmentAnimation;
+
+@override
 Widget build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshWeather,
-        child: _buildUI(),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return _buildUI();
+          },
+        ),
       ),
     ),
   );
 }
+
 
   Widget _buildUI() {
     return Container(
       padding: const EdgeInsets.all(20.0),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(255, 29, 3, 45),
-            Color.fromARGB(255, 107, 65, 213),
+          colors: const [
+            Color.fromARGB(255, 37, 15, 65),
+            Color.fromARGB(255, 129, 19, 198),
           ],
+            begin: _topAlignmentAnimation.value,
+            end: _bottomAlignmentAnimation.value,
         ),
       ),
       child: SingleChildScrollView(
@@ -90,10 +144,11 @@ Widget build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 10),
             dateTimeInfo(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 35),
             hourlyForecastWidget(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 35),
             Center(child: additionalInfo(_weather)),
           ],
         ),
@@ -164,7 +219,7 @@ Widget build(BuildContext context) {
     return _hourlyForecast == null
         ? const Center(child: CircularProgressIndicator())
         : SizedBox(
-            height: 120,
+            height: 140,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: _hourlyForecast!.length,
@@ -177,47 +232,58 @@ Widget build(BuildContext context) {
   }
 
   Widget hourlyForecastTile(Weather weather) {
-    String iconUrl = 'http://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png';
+  String iconUrl = 'http://openweathermap.org/img/wn/${weather.weatherIcon}@2x.png';
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            DateFormat.j().format(weather.date!),
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'Manrope',
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 7.0),
+    padding: const EdgeInsets.all(10.0),
+    decoration: BoxDecoration(
+      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          DateFormat("EEE").format(weather.date!), // Day of the week
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Manrope',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
-          const SizedBox(height: 5),
-          Image.network(
-            iconUrl,
-            width: 40,
-            height: 40,
+        ),
+        const SizedBox(height: 5),
+        Text(
+          DateFormat("h a").format(weather.date!), // Time
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Manrope',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
-          const SizedBox(height: 5),
-          Text(
-            '${weather.temperature?.celsius?.toStringAsFixed(0) ?? '--'}°C',
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'Manrope',
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+        ),
+        const SizedBox(height: 5),
+        Image.network(
+          iconUrl,
+          width: 40,
+          height: 40,
+        ),
+        const SizedBox(height: 5),
+        Text(
+          '${weather.temperature?.celsius?.toStringAsFixed(0) ?? '--'}°C',
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Manrope',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget additionalInfo(Weather? weather) {
     return Container(
@@ -238,7 +304,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -266,7 +332,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -300,7 +366,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -328,7 +394,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -362,7 +428,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -390,7 +456,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -424,7 +490,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
@@ -452,7 +518,7 @@ Widget build(BuildContext context) {
                   margin: const EdgeInsets.all(15.0),
                   padding: const EdgeInsets.all(15.0),
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(

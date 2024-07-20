@@ -12,6 +12,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  late Animation<Alignment> _topAlignmentAnimation;
+  late Animation<Alignment> _bottomAlignmentAnimation;
 
   @override
   void initState() {
@@ -19,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 4),
       vsync: this,
     );
 
@@ -28,9 +30,51 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       curve: Curves.easeInOut,
     );
 
-    _controller.forward();
+    _topAlignmentAnimation = TweenSequence<Alignment>(
+      [
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+          weight: 1,
+        ),
+      ]
+    ).animate(_controller);
 
-    Future.delayed(const Duration(seconds: 3), () {
+    _bottomAlignmentAnimation = TweenSequence<Alignment>(
+      [
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+          weight: 1,
+        ),
+        TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
+          weight: 1,
+        ),
+      ]
+    ).animate(_controller);
+
+    _controller.repeat();
+
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => const ClimaTechApp(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -60,28 +104,33 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 22, 1, 35),
-              Color.fromARGB(255, 107, 65, 213),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Center(
-          child: ScaleTransition(
-            scale: _animation,
-            child: const Image(
-              image: AssetImage('assets/images/logo-climatech.png'),
-              width: 500,
-              height: 500,
+      body: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: const [
+                  Color.fromARGB(255, 37, 15, 65),
+                  Color.fromARGB(255, 129, 19, 198),
+                ],
+                begin: _topAlignmentAnimation.value,
+                end: _bottomAlignmentAnimation.value,
+              ),
             ),
-          ),
-        ),
+            child: Center(
+              child: ScaleTransition(
+                scale: _animation,
+                child: const Image(
+                  image: AssetImage('assets/images/logo-climatech.png'),
+                  width: 500,
+                  height: 500,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
