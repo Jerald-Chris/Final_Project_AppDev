@@ -152,6 +152,8 @@ Widget build(BuildContext context) {
         children: [
           RefreshIndicator(
             onRefresh: _refreshWeather,
+            color: Colors.deepPurple,
+            backgroundColor: Colors.white,
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, child) {
@@ -343,7 +345,7 @@ Widget build(BuildContext context) {
         const SizedBox(
             height:
                 30), // Optional: Add some space between the description and the forecast text
-        const Text("5 Days Forecast",
+        const Text("7 Days Forecast",
           style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             fontFamily: 'Manrope',
