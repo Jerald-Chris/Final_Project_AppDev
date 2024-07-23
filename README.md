@@ -77,23 +77,27 @@ https://openweathermap.org/api <br><br>
 ![API](https://github.com/user-attachments/assets/d1d2699d-98bc-499d-8295-f7761b703bd8)
 
 # <font size="5">✅ Final Output</font>
-Splash Screen<br>
-![splash](https://github.com/user-attachments/assets/8bed4b04-136a-47be-b4dc-c7c0522ddf09)<br>
+<b>Splash Screen<b><br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8bed4b04-136a-47be-b4dc-c7c0522ddf09" alt="splash" style="width: 300px; height: 700px;" />
+</p><br>
 
-Welcome Page<br>
+<b>Welcome Page<b><br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/14b942be-41fb-4707-bd05-383849f5c737" alt="Welcome" style="width: 300px; height: 700px;" />
+</p><br>
 
-![main](https://github.com/user-attachments/assets/14b942be-41fb-4707-bd05-383849f5c737)<br>
+<b>Home Page<b><br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/03f5b365-0ac8-410b-a7b4-b08fc914c4b1" alt="Super" style="width: 300px; height: 700px;" />
+</p><br>
 
-Home Page<br>
+<b>Second Tab<b><br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1f2ca9d3-25c3-4642-80f2-0e8b6ef1781f" alt="Next" style="width: 300px; height: 700px;" />
+</p><br>
 
-![super min](https://github.com/user-attachments/assets/03f5b365-0ac8-410b-a7b4-b08fc914c4b1)<br>
-
-Second Tab<br>
-
-![next page](https://github.com/user-attachments/assets/1f2ca9d3-25c3-4642-80f2-0e8b6ef1781f)
-
-
-Project Members:<br><br>
+# <font size="5">👨‍👨‍👦 Project Members:</font>
 Acosta, Hans Rafael B.<br>
 De Castro, Mark Rafael V.<br>
 Maralit, Chris Jerald G.<br><br>
