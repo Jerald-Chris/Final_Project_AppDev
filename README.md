@@ -69,7 +69,7 @@ To run the application you need to input this in the terminal: <br>
 
 
 
-# <font size="5">✅ Final Outpu</font>
+# <font size="5">✅ Final Output</font>
 Splash Screen<br>
 ![splash](https://github.com/user-attachments/assets/8bed4b04-136a-47be-b4dc-c7c0522ddf09)<br>
 
