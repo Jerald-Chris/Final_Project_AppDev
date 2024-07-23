@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" src=![logo-climatech]"https://github.com/user-attachments/assets/c0f21cd8-2102-44a3-84da-6e1c4e96b2e8/460/300">
+  <img width="460" height="300" src="https://github.com/user-attachments/assets/c0f21cd8-2102-44a3-84da-6e1c4e96b2e8/460/300">
   </p>
 
 
@@ -51,15 +51,54 @@ The ClimaTech weather app supports SDG 3: Good Health and Well-being by providin
 
 # <font size="5">🔓 Dependencies</font>
 
-Acosta, Hans Rafael B.<br>
+To run the application you need to input this in the terminal: <br>
 
-De Castro, Mark Rafael V.<br>
-Maralit, Chris Jerald G.<br>
-BSIT-3307 
+![TO RUN](https://github.com/user-attachments/assets/7d8d070b-8893-47a0-b937-393a936fff6f)
+<br></br>
+![CUPERTINO](https://github.com/user-attachments/assets/41b72413-e8a0-4c3c-b5c0-e7c8f0055e81)
+<br></br>
+![ASSETS](https://github.com/user-attachments/assets/28b7081a-8265-4963-a885-dfec83cdaf10)
+<br></br>
+![FONTS](https://github.com/user-attachments/assets/ac621183-931b-40a7-a229-7969bc5b8c96)
 
-Mock Design Idea
+# <font size="5">🧰 API used </font>
+
+![apiii](https://github.com/user-attachments/assets/c34089de-273a-493d-a446-0d4303256fb6)
+<br></br>
+![API](https://github.com/user-attachments/assets/d1d2699d-98bc-499d-8295-f7761b703bd8)
+
+
+
+# <font size="5">✅ Final Outpu</font>
+Splash Screen<br>
+![splash](https://github.com/user-attachments/assets/8bed4b04-136a-47be-b4dc-c7c0522ddf09)<br>
+
+Welcome Page<br>
+
+![main](https://github.com/user-attachments/assets/14b942be-41fb-4707-bd05-383849f5c737)<br>
+
+Home Page<br>
+
+![super min](https://github.com/user-attachments/assets/03f5b365-0ac8-410b-a7b4-b08fc914c4b1)<br>
+
+Second Tab<br>
+
+![next page](https://github.com/user-attachments/assets/1f2ca9d3-25c3-4642-80f2-0e8b6ef1781f)
+
+
+
+
+
 
 Description:
 ClimaTech is a modern weather application designed with a sleek and user-friendly interface. It provides users with accurate and up-to-date weather information using integrated APIs. The app is designed using Flutter, ensuring smooth performance across different devices.
 
-![450569160_508214501549187_2183181663257809839_n](https://github.com/user-attachments/assets/12647f91-ef0d-4879-9d82-02606f3f2ee2)
+
+Acosta, Hans Rafael B.<br>
+
+
+De Castro, Mark Rafael V.<br>
+
+
+Maralit, Chris Jerald G.<br>
+BSIT-3307 
