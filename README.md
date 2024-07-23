@@ -1,7 +1,6 @@
 <p align="center">
-  <img width="460" height="300" src="https://github.com/user-attachments/assets/c0f21cd8-2102-44a3-84da-6e1c4e96b2e8/460/300">
-  </p>
-
+  <img src="https://github.com/user-attachments/assets/2f426f08-062b-4d00-969f-ed729f7c49e3" alt="logo-climatech" style="width: 300px; height: auto;" />
+</p>
 # <font size="5">Overview</font>
 
 # <font size="5">CLIMATECH: Weather Application</font>
