@@ -56,6 +56,8 @@ To run the application you need to input this in the terminal: <br>
 
 ![TO RUN](https://github.com/user-attachments/assets/7d8d070b-8893-47a0-b937-393a936fff6f)
 <br></br>
+
+Used Dependencies:
 ![CUPERTINO](https://github.com/user-attachments/assets/41b72413-e8a0-4c3c-b5c0-e7c8f0055e81)
 <br></br>
 ![ASSETS](https://github.com/user-attachments/assets/28b7081a-8265-4963-a885-dfec83cdaf10)
@@ -64,11 +66,12 @@ To run the application you need to input this in the terminal: <br>
 
 # <font size="5">🧰 API used </font>
 
+Using the OpenWeatherAPI:
+https://openweathermap.org/api
+
 ![apiii](https://github.com/user-attachments/assets/c34089de-273a-493d-a446-0d4303256fb6)
 <br></br>
 ![API](https://github.com/user-attachments/assets/d1d2699d-98bc-499d-8295-f7761b703bd8)
-
-
 
 # <font size="5">✅ Final Output</font>
 Splash Screen<br>
