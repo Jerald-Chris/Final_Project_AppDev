@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2f426f08-062b-4d00-969f-ed729f7c49e3" alt="logo-climatech" style="width: 300px; height: auto;" />
+  <img src="https://github.com/user-attachments/assets/de3ac84a-75a4-4cec-8258-3bdfa21a0b74" alt="logo-climatech" style="width: 1000px; height: auto;" />
 </p>
 
 # <font size="6">Project Overview</font>
