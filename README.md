@@ -49,7 +49,7 @@ The ClimaTech weather app supports SDG 3: Good Health and Well-being by providin
 - Home Button: Easy access to the home screen from any part of the app for seamless navigation.
 <br></br>
 
-# <font size="5">Dependencies</font>
+# <font size="5">🔓 Dependencies</font>
 
 Acosta, Hans Rafael B.<br>
 
