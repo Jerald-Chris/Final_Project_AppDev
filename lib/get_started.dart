@@ -113,7 +113,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Image(
-                    image: AssetImage('assets/images/lugo.png'),
+                    image: AssetImage('assets/images/logo-climatech.png'),
                     width: 300,
                     height: 300,
                   ),

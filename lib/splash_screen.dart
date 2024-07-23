@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: ScaleTransition(
                 scale: _animation,
                 child: const Image(
-                  image: AssetImage('assets/images/lugo.png'),
+                  image: AssetImage('assets/images/logo-climatech.png'),
                   width: 500,
                   height: 500,
                 ),
