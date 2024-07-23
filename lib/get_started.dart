@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MaterialApp(
+    //run splashscreen first before the get started page
     home: SplashScreen(),
   ));
 }
@@ -14,6 +15,7 @@ class ClimaTechApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //title of the page
       title: 'Get Started',
       theme: ThemeData(
         fontFamily: 'Manrope',
@@ -31,8 +33,8 @@ class ClimaTechHomePage extends StatefulWidget {
   _ClimaTechHomePageState createState() => _ClimaTechHomePageState();
 }
 
-class _ClimaTechHomePageState extends State<ClimaTechHomePage>
-    with SingleTickerProviderStateMixin {
+class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTickerProviderStateMixin {
+  //color animation
   late AnimationController _controller;
   late Animation<Alignment> _topAlignmentAnimation;
   late Animation<Alignment> _bottomAlignmentAnimation;
@@ -40,8 +42,11 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
   @override
   void initState() {
     super.initState();
+    //animation controller and movement for the background
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
+
+    //top alignment animation
     _topAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween:
@@ -65,6 +70,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
       ),
     ]).animate(_controller);
 
+    //bottom alignment animation
     _bottomAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween: Tween<Alignment>(
@@ -91,6 +97,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
     _controller.repeat();
   }
 
+  //widget for the overall structure of the page
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,6 +115,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
                 end: _bottomAlignmentAnimation.value,
               ),
             ),
+            //insert logo image
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -117,9 +125,9 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
                     width: 300,
                     height: 300,
                   ),
+                  //insert application title and tagline
                   const SizedBox(height: 20),
-                  const Text(
-                    'ClimaTech',
+                  const Text('ClimaTech',
                     style: TextStyle(
                       fontFamily: 'ArsenalSC-Bold',
                       fontSize: 55,
@@ -128,14 +136,14 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Weathering With You',
+                  const Text('Weathering With You',
                     style: TextStyle(
                       fontFamily: 'Manrope-Bold',
                       fontSize: 15,
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
+                  //insert bottom navigation button to route to main.dart
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
@@ -145,15 +153,15 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage>
                               builder: (context) => const MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 242, 245, 65),
+                      backgroundColor: const Color.fromARGB(255, 242, 245, 65),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: const Text(
-                      'Get Started',
+                    //title of the button
+                    child: const Text('Get Started',
                       style: TextStyle(
                         fontSize: 16,
                         color: Color.fromARGB(255, 0, 0, 0),

@@ -9,8 +9,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  //animation variable declaration
   late AnimationController _controller;
   late Animation<double> _animation;
   late Animation<Alignment> _topAlignmentAnimation;
@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
+    //fade in animation controller
     _controller = AnimationController(
       duration: const Duration(seconds: 4),
       vsync: this,
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeInOut,
     );
 
+    //top alignment animation for the background
     _topAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween:
@@ -54,6 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     ]).animate(_controller);
 
+    //bottom alignment animation for the background
     _bottomAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween: Tween<Alignment>(
@@ -79,6 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.repeat();
 
+    //push animation
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -109,6 +113,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  //background theme and animation
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,6 +132,7 @@ class _SplashScreenState extends State<SplashScreen>
                 end: _bottomAlignmentAnimation.value,
               ),
             ),
+            //insert logo image
             child: Center(
               child: ScaleTransition(
                 scale: _animation,

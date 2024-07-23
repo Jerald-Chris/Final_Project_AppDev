@@ -12,6 +12,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  //title and theme of the page
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,22 +37,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  //API initialization
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
   List<Weather>? _forecast;
 
+  //string capitalization for the weather forecast
   String capitalize(String? text) {
     if (text == null) return "";
     return text.toUpperCase();
   }
-
+  
+  //animation controller for the background
   @override
   void initState() {
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
+
+    //top alignment animation
     _topAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween:
@@ -75,6 +80,7 @@ class _HomePageState extends State<HomePage>
       ),
     ]).animate(_controller);
 
+    //bottom alignment animation
     _bottomAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
         tween: Tween<Alignment>(
@@ -99,9 +105,17 @@ class _HomePageState extends State<HomePage>
     ]).animate(_controller);
 
     _controller.repeat();
+    //fetch weather forecast from the API
     _fetchWeather();
   }
 
+  //color animation
+  late AnimationController _controller;
+  late Animation<Alignment> _topAlignmentAnimation;
+  late Animation<Alignment> _bottomAlignmentAnimation;
+
+
+  //fetch weather forecast
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 1));
     try {
@@ -114,18 +128,17 @@ class _HomePageState extends State<HomePage>
         }
       });
     } catch (e) {
+      // ignore: avoid_print
       print("Error fetching weather data: $e");
     }
   }
 
-  late AnimationController _controller;
-  late Animation<Alignment> _topAlignmentAnimation;
-  late Animation<Alignment> _bottomAlignmentAnimation;
-
+  //refresh gesture to sync weather forecast
   Future<void> _refreshWeather() async {
     await _fetchWeather();
   }
 
+  //tab bar theme and design
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -137,7 +150,7 @@ class _HomePageState extends State<HomePage>
             indicatorColor: Colors.white,
             tabs: [
               Padding(
-                padding: EdgeInsets.all(10.0), // Add padding here
+                padding: EdgeInsets.all(10.0),
                 child: Icon(
                   Icons.home,
                   color: Colors.white,
@@ -145,7 +158,7 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10.0), // Add padding here
+                padding: EdgeInsets.all(10.0),
                 child: Icon(
                   Icons.location_on_outlined,
                   color: Colors.white,
@@ -155,6 +168,7 @@ class _HomePageState extends State<HomePage>
             ],
           ),
         ),
+        //tab bar refresh and navigation routing
         body: TabBarView(
           children: [
             RefreshIndicator(
@@ -178,6 +192,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  //widget UI background decoration
   Widget _buildUI() {
     if (_forecast == null) {
       return Stack(
@@ -220,8 +235,10 @@ class _HomePageState extends State<HomePage>
             end: _bottomAlignmentAnimation.value,
           ),
         ),
+        //scroll animation for the day forecast part of the page
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
+          //alignment of the page
           child: Padding(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
@@ -230,14 +247,17 @@ class _HomePageState extends State<HomePage>
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //dateTimeInfo widget and sizing
                 dateTimeInfo(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
+                //weatherIcon widget and sizing
                 weatherIcon(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
                 ),
+                //forecastContainer widget
                 forecastContainer(),
               ],
             ),
@@ -247,6 +267,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  //realtime date and time information on the top part of the page
   Widget dateTimeInfo() {
     DateTime now = DateTime.now();
     return Column(
@@ -259,27 +280,27 @@ class _HomePageState extends State<HomePage>
               color: Color.fromARGB(255, 255, 255, 255),
               size: 16,
             ),
+            //time format
             const SizedBox(
-                width: 4), // Add some space between the icon and the time text
+                width: 4),
             Text(
               DateFormat("h:mm a  |").format(now),
               style: const TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
-                fontSize: 16, // Reduced font size
+                fontSize: 16,
                 fontWeight: FontWeight.w300,
               ),
             ),
+            //date format
             const SizedBox(
-                width:
-                    4), // Add some space between the date text and the calendar icon
+                width: 4),
             const Icon(
               Icons.calendar_today,
               color: Color.fromARGB(255, 255, 255, 255),
               size: 16,
             ),
-            Text(
-              "  ${DateFormat("M.d.y").format(now)}",
+            Text("  ${DateFormat("M.d.y").format(now)}",
               style: const TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'Manrope',
@@ -289,6 +310,7 @@ class _HomePageState extends State<HomePage>
             ),
           ],
         ),
+        //day format
         const SizedBox(
           height: 10,
         ),
