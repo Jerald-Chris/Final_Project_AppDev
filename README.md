@@ -2,12 +2,13 @@
   <img width="460" height="300" src="https://github.com/user-attachments/assets/c0f21cd8-2102-44a3-84da-6e1c4e96b2e8/460/300">
   </p>
 
+# <font size="5">Overview</font>
 
 # <font size="5">CLIMATECH: Weather Application</font>
 
 It is a mobile application that tells users about the present and predicted weather. Generally, it displays information on temperature, humidity, wind direction, and precipitation. It is typical for users to view forecasts for the next few days and receive notifications regarding extreme weather condition. Additional elements like sunrise/sunset times might potentially be included in the app.
 
-# <font size="5">Overview</font>
+# <font size="5">Sustainable Development Goals</font>
 
 The ClimaTech weather app supports SDG 13: Climate Action by raising awareness about climate change through detailed weather forecasts. It promotes preparedness for extreme weather, encourages sustainable behavior, and provides valuable data for policymakers. This app helps users understand and adapt to climate impacts, aligning with global climate action goals.
 <br></br>
