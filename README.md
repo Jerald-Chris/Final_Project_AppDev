@@ -4,7 +4,7 @@
 
 # <font size="6">Project Overview</font>
 
-# <font size="5">CLIMATECH: Weather Application</font>
+# <font size="5">ClimaTech: Weather Application</font>
 
 ClimaTech is a modern weather application designed with a sleek and user-friendly interface. It provides users with accurate and up-to-date weather information using an integrated API. The app is designed using Flutter and Dart programming language, ensuring smooth performance across different devices. It is a mobile application that tells users about the present and predicted weather. Generally, it displays information on temperature, humidity, wind direction, and precipitation. It is typical for users to view forecasts for the week regarding extreme weather conditions.
 
