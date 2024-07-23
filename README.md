@@ -52,17 +52,20 @@ The ClimaTech weather application supports <b>SDG 13: Climate Action</b> by rais
 
 # <font size="5">🔓 Dependencies</font>
 
-To run the application you need to input this in the terminal: <br>
-
-![TO RUN](https://github.com/user-attachments/assets/7d8d070b-8893-47a0-b937-393a936fff6f)
-<br><br>
-
 Used Dependencies: <br><br>
 ![CUPERTINO](https://github.com/user-attachments/assets/41b72413-e8a0-4c3c-b5c0-e7c8f0055e81)
 <br></br>
 ![ASSETS](https://github.com/user-attachments/assets/28b7081a-8265-4963-a885-dfec83cdaf10)
 <br></br>
 ![FONTS](https://github.com/user-attachments/assets/ac621183-931b-40a7-a229-7969bc5b8c96)
+<br><br>
+
+To run the application you need to input this in the terminal: <br>
+
+![TO RUN](https://github.com/user-attachments/assets/7d8d070b-8893-47a0-b937-393a936fff6f)
+<br>
+
+Run (lib/main.dart)<br><br>
 
 # <font size="5">🧰 API used </font>
 
