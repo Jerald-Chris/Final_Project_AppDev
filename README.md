@@ -6,18 +6,18 @@
 
 # <font size="5">CLIMATECH: Weather Application</font>
 
-It is a mobile application that tells users about the present and predicted weather. Generally, it displays information on temperature, humidity, wind direction, and precipitation. It is typical for users to view forecasts for the next few days and receive notifications regarding extreme weather condition. Additional elements like sunrise/sunset times might potentially be included in the app.
+ClimaTech is a modern weather application designed with a sleek and user-friendly interface. It provides users with accurate and up-to-date weather information using an integrated API. The app is designed using Flutter and Dart programming language, ensuring smooth performance across different devices. It is a mobile application that tells users about the present and predicted weather. Generally, it displays information on temperature, humidity, wind direction, and precipitation. It is typical for users to view forecasts for the week regarding extreme weather conditions.
 
 # <font size="5">Sustainable Development Goals</font>
 
-The ClimaTech weather app supports SDG 13: Climate Action by raising awareness about climate change through detailed weather forecasts. It promotes preparedness for extreme weather, encourages sustainable behavior, and provides valuable data for policymakers. This app helps users understand and adapt to climate impacts, aligning with global climate action goals.
-<br></br>
-![hello](https://github.com/user-attachments/assets/c9c5f667-c2f8-4d73-90b0-d022207dbd44)
-<br></br>
-The ClimaTech weather app supports SDG 3: Good Health and Well-being by providing accurate weather forecasts, helping users avoid adverse conditions and prevent weather-related illnesses and injuries. It protects vulnerable populations by alerting them to extreme weather and helps prevent disease spread by providing data on conditions favorable for mosquito-borne diseases. Additionally, it reduces stress and anxiety by keeping users informed and prepared. Overall, the app contributes to physical and mental well-being, aligning with the goals of SDG 3.
+The ClimaTech weather app supports <b>SDG 3: Good Health and Well-being</b> by providing accurate weather forecasts, helping users avoid adverse conditions and prevent weather-related illnesses and injuries. It protects vulnerable populations by alerting them to extreme weather and helps prevent disease spread by providing data on conditions favorable for mosquito-borne diseases. Additionally, it reduces stress and anxiety by keeping users informed and prepared. Overall, the app contributes to physical and mental well-being, aligning with the goals of SDG 3.
 <br></br>
 
 ![sdg 3](https://github.com/user-attachments/assets/9347369d-ecfa-4367-9c7f-209b3a62e114)
+The ClimaTech weather application supports <b>SDG 13: Climate Action</b> by raising awareness about climate change through detailed weather forecasts. It promotes preparedness for extreme weather, encourages sustainable behavior, and provides valuable data for policymakers. This app helps users understand and adapt to climate impacts, aligning with global climate action goals.
+<br></br>
+![hello](https://github.com/user-attachments/assets/c9c5f667-c2f8-4d73-90b0-d022207dbd44)
+<br></br>
 
 # <font size="5">🎯 Features</font>
  <b>General</b>
@@ -88,11 +88,6 @@ Second Tab<br>
 
 
 
-
-
-
-Description:
-ClimaTech is a modern weather application designed with a sleek and user-friendly interface. It provides users with accurate and up-to-date weather information using integrated APIs. The app is designed using Flutter, ensuring smooth performance across different devices.
 
 
 Acosta, Hans Rafael B.<br>
