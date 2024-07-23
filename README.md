@@ -57,7 +57,7 @@ To run the application you need to input this in the terminal: <br>
 ![TO RUN](https://github.com/user-attachments/assets/7d8d070b-8893-47a0-b937-393a936fff6f)
 <br></br>
 
-Used Dependencies:
+Used Dependencies: <br>
 ![CUPERTINO](https://github.com/user-attachments/assets/41b72413-e8a0-4c3c-b5c0-e7c8f0055e81)
 <br></br>
 ![ASSETS](https://github.com/user-attachments/assets/28b7081a-8265-4963-a885-dfec83cdaf10)
