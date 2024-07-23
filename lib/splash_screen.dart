@@ -9,7 +9,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   late Animation<Alignment> _topAlignmentAnimation;
@@ -30,59 +31,65 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       curve: Curves.easeInOut,
     );
 
-    _topAlignmentAnimation = TweenSequence<Alignment>(
-      [
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1,
-        ),
-      ]
-    ).animate(_controller);
+    _topAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
-    _bottomAlignmentAnimation = TweenSequence<Alignment>(
-      [
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1,
-        ),
-      ]
-    ).animate(_controller);
+    _bottomAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
     _controller.repeat();
 
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const ClimaTechApp(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const ClimaTechApp(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0); // Slide in from the right
           const end = Offset.zero;
           const curve = Curves.easeInOut;
 
-          final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          final tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           final offsetAnimation = animation.drive(tween);
 
           return SlideTransition(
@@ -97,7 +104,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void dispose() {
     _controller.dispose();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
@@ -123,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               child: ScaleTransition(
                 scale: _animation,
                 child: const Image(
-                  image: AssetImage('assets/images/logo-climatech.png'),
+                  image: AssetImage('assets/images/lugo.png'),
                   width: 500,
                   height: 500,
                 ),

@@ -36,7 +36,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final WeatherFactory _weatherFactory = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
   List<Weather>? _forecast;
@@ -49,57 +50,63 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-        _controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
-      _topAlignmentAnimation = TweenSequence<Alignment>(
-        [
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-            weight: 1,
-          ),
-        ]
-      ).animate(_controller);
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    _topAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
-      _bottomAlignmentAnimation = TweenSequence<Alignment>(
-        [
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-            weight: 1,
-          ),
-          TweenSequenceItem<Alignment>(
-            tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-            weight: 1,
-          ),
-        ]
-      ).animate(_controller);
+    _bottomAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
-      _controller.repeat();
+    _controller.repeat();
     _fetchWeather();
   }
 
   Future<void> _fetchWeather() async {
     await Future.delayed(const Duration(seconds: 1));
     try {
-      final forecast = await _weatherFactory.fiveDayForecastByCityName("Batangas");
+      final forecast =
+          await _weatherFactory.fiveDayForecastByCityName("Batangas");
       setState(() {
         _forecast = forecast;
         if (_forecast != null && _forecast!.isNotEmpty) {
@@ -120,54 +127,56 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   @override
-Widget build(BuildContext context) {
-  return DefaultTabController(
-    length: 2, // Number of tabs
-    child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 29, 3, 45),
-        bottom: const TabBar(
-          indicatorColor: Colors.white,
-          tabs: [
-            Padding(
-              padding: EdgeInsets.all(10.0), // Add padding here
-              child: Icon(
-                Icons.home,
-                color: Colors.white,
-                size: 30.0,
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2, // Number of tabs
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 29, 3, 45),
+          bottom: const TabBar(
+            indicatorColor: Colors.white,
+            tabs: [
+              Padding(
+                padding: EdgeInsets.all(10.0), // Add padding here
+                child: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0), // Add padding here
-              child: Icon(
-                Icons.location_on_outlined,
-                color: Colors.white,
-                size: 30.0,
+              Padding(
+                padding: EdgeInsets.all(10.0), // Add padding here
+                child: Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+              ), // Second tab
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            RefreshIndicator(
+              onRefresh: _refreshWeather,
+              color: Colors.deepPurple,
+              backgroundColor: Colors.white,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return _buildUI();
+                },
+                child: _buildUI(),
               ),
-            ), // Second tab
+            ), // First tab content
+            const SecondTab(
+              title: 'ClimaTech',
+            ), // Second tab content from the new file
           ],
         ),
       ),
-      body: TabBarView(
-        children: [
-          RefreshIndicator(
-            onRefresh: _refreshWeather,
-            color: Colors.deepPurple,
-            backgroundColor: Colors.white,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, child) {
-                return _buildUI();
-              },
-              child: _buildUI(),
-            ),
-          ), // First tab content
-          const SecondTab(title: 'ClimaTech',), // Second tab content from the new file
-        ],
-      ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildUI() {
     if (_forecast == null) {
@@ -175,11 +184,11 @@ Widget build(BuildContext context) {
         children: [
           Container(
             decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: const [
-                Color.fromARGB(255, 37, 15, 65),
-                Color.fromARGB(255, 129, 19, 198),
-              ],
+              gradient: LinearGradient(
+                colors: const [
+                  Color.fromARGB(255, 37, 15, 65),
+                  Color.fromARGB(255, 129, 19, 198),
+                ],
                 begin: _topAlignmentAnimation.value,
                 end: _bottomAlignmentAnimation.value,
               ),
@@ -202,15 +211,15 @@ Widget build(BuildContext context) {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: const [
-                Color.fromARGB(255, 37, 15, 65),
-                Color.fromARGB(255, 129, 19, 198),
-              ],
-                begin: _topAlignmentAnimation.value,
-                end: _bottomAlignmentAnimation.value,
-              ),
-            ),
+          gradient: LinearGradient(
+            colors: const [
+              Color.fromARGB(255, 37, 15, 65),
+              Color.fromARGB(255, 129, 19, 198),
+            ],
+            begin: _topAlignmentAnimation.value,
+            end: _bottomAlignmentAnimation.value,
+          ),
+        ),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
@@ -345,7 +354,8 @@ Widget build(BuildContext context) {
         const SizedBox(
             height:
                 30), // Optional: Add some space between the description and the forecast text
-        const Text("7 Days Forecast",
+        const Text(
+          "7 Days Forecast",
           style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             fontFamily: 'Manrope',
@@ -468,7 +478,7 @@ Widget build(BuildContext context) {
         return Icons.umbrella;
       case '10d':
         return Icons.beach_access;
-      case '10n': 
+      case '10n':
         return Icons.beach_access;
       case '11d':
         return Icons.flash_on;

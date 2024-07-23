@@ -31,7 +31,8 @@ class ClimaTechHomePage extends StatefulWidget {
   _ClimaTechHomePageState createState() => _ClimaTechHomePageState();
 }
 
-class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTickerProviderStateMixin {
+class _ClimaTechHomePageState extends State<ClimaTechHomePage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Alignment> _topAlignmentAnimation;
   late Animation<Alignment> _bottomAlignmentAnimation;
@@ -39,48 +40,53 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTicker
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
-    _topAlignmentAnimation = TweenSequence<Alignment>(
-      [
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1,
-        ),
-      ]
-    ).animate(_controller);
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    _topAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
-    _bottomAlignmentAnimation = TweenSequence<Alignment>(
-      [
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomRight, end: Alignment.bottomLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.bottomLeft, end: Alignment.topLeft),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: Tween<Alignment>(begin: Alignment.topRight, end: Alignment.bottomRight),
-          weight: 1,
-        ),
-      ]
-    ).animate(_controller);
+    _bottomAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomRight, end: Alignment.bottomLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft, end: Alignment.topLeft),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween:
+            Tween<Alignment>(begin: Alignment.topLeft, end: Alignment.topRight),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: Tween<Alignment>(
+            begin: Alignment.topRight, end: Alignment.bottomRight),
+        weight: 1,
+      ),
+    ]).animate(_controller);
 
     _controller.repeat();
   }
@@ -107,7 +113,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTicker
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Image(
-                    image: AssetImage('assets/images/logo-climatech.png'),
+                    image: AssetImage('assets/images/lugo.png'),
                     width: 300,
                     height: 300,
                   ),
@@ -127,17 +133,21 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTicker
                     style: TextStyle(
                       fontFamily: 'Manrope-Bold',
                       fontSize: 15,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      backgroundColor: Color.fromARGB(255, 242, 245, 65),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -146,7 +156,7 @@ class _ClimaTechHomePageState extends State<ClimaTechHomePage> with SingleTicker
                       'Get Started',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.w800,
                       ),
                     ),
