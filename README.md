@@ -11,25 +11,26 @@ ClimaTech is a modern weather application designed with a sleek and user-friendl
 # 🤝<font size="5">Sustainable Development Goals (SDG)</font>
 
 ![sdg 3](https://github.com/user-attachments/assets/9347369d-ecfa-4367-9c7f-209b3a62e114)<br>
-The ClimaTech weather app supports <b>SDG 3: Good Health and Well-being</b> by providing accurate weather forecasts, helping users avoid adverse conditions and prevent weather-related illnesses and injuries. Additionally, it reduces stress and anxiety by keeping users informed and prepared. Overall, the app contributes to physical and mental well-being, aligning with the goals of SDG 3.
+The ClimaTech weather application supports <b>SDG 3: Good Health and Well-being</b> by providing accurate weather forecasts, helping users avoid adverse conditions and prevent weather-related illnesses and injuries. Additionally, it reduces stress and anxiety by keeping users informed and prepared. Overall, the app contributes to physical and mental well-being, aligning with the goals of SDG 3.
 <br><br>
 ![hello](https://github.com/user-attachments/assets/c9c5f667-c2f8-4d73-90b0-d022207dbd44)
 <br>
 
-The ClimaTech weather application supports <b>SDG 13: Climate Action</b> by raising awareness about climate change through detailed weather forecasts. It promotes preparedness for extreme weather, encourages sustainable behavior, and provides valuable data for policymakers. This app helps users understand and adapt to climate impacts, aligning with global climate action goals.
+The ClimaTech weather application also supports <b>SDG 13: Climate Action</b> by raising awareness about climate change through detailed weather forecasts. It promotes preparedness for extreme weather, encourages sustainable behavior, and provides valuable data for policymakers. This app helps users understand and adapt to climate impacts, aligning with global climate action goals.
 <br></br>
 
 # <font size="5">🎯 Features</font>
  <b>General</b>
 - User-Friendly Interface: Simple and intuitive design for easy navigation.
+- Consistent Color Scheme: A cohesive color palette that enhances readability and aesthetic appeal.
 - Logo and Branding: Clear and distinctive logo and name for brand recognition.
 - Onboarding Screen: Introduction screen with a "Get Started" button to begin using the app.
 <br></br>
 
  <b>Main Weather Screen</b>
-- Current Weather Display: Shows the realtime weather with an icon, temperature, and precipitation chance.
+- Current Weather Display: Shows the realtime weather with an icon and current temperature.
 - 7-Day Forecast: Provides a weekly weather forecast with daily temperatures and weather icons for quick reference.
-- Current Date and Time: Displays the current time and date at the top.
+- Current Date and Time: Displays the current time and date information at the top.
 <br></br>
 
  <b>Detailed Weather Information</b>
@@ -40,13 +41,8 @@ The ClimaTech weather application supports <b>SDG 13: Climate Action</b> by rais
 
 <b>Navigation and Usability</b>
 - Date and Time Indicators: Clearly shows the current date and time for context.
-- Interactive Elements: Buttons and icons are easy to interact with, improving user experience.
+- Interactive Elements: Buttons, icons, and sliding gestures are easy to interact with, improving user experience.
 - Visual Icons: Uses visual weather icons to quickly convey weather conditions without needing to read text.
-<br></br>
-
-<b>Additional Features</b>
-- Tomorrow's Weather Preview: Offers a brief overview of the week's weather to help users plan ahead.
-- Consistent Color Scheme: A cohesive color palette that enhances readability and aesthetic appeal.
 - Home Button: Easy access to the home screen from the top part of the app for seamless navigation.
 <br></br>
 
@@ -101,4 +97,7 @@ Acosta, Hans Rafael B.<br>
 De Castro, Mark Rafael V.<br>
 Maralit, Chris Jerald G.<br><br>
 BSIT-3307<br>
-IT-331: Application Development and Emerging Technologies
+IT-331: Application Development and Emerging Technologies<br>
+Course Facilitator:<br>
+Ms. Fatima Marie Agdon
+
