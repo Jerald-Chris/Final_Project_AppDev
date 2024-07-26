@@ -391,7 +391,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   Widget forecastContainer() {
     return SizedBox(
-      height: 250, // Set the desired height for the scrollable area
+      height: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
