@@ -97,7 +97,7 @@ Acosta, Hans Rafael B.<br>
 De Castro, Mark Rafael V.<br>
 Maralit, Chris Jerald G.<br><br>
 BSIT-3307<br>
-IT-331: Application Development and Emerging Technologies<br>
+IT-331: Application Development and Emerging Technologies<br><br>
 Course Facilitator:<br>
 Ms. Fatima Marie Agdon
 
