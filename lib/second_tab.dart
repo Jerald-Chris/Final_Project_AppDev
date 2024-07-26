@@ -315,7 +315,7 @@ Widget _buildUI() {
 //additional information layout and sizing below the page
 Widget additionalInfo(Weather? weather) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.60,
+    height: MediaQuery.of(context).size.height * 0.70,
     width: MediaQuery.of(context).size.width * 0.80,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
